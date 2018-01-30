@@ -4,11 +4,11 @@ from random import randint
 
 white='\033[1;37m'
 black='\033[1;30m'
-reset='\033[0m'
+reset='\033[0m' ## turn these colours on on repl.it. Not in IDLE tho tho
 
 ## print('{}ofwgkta{}'.format(white, reset)) colour test
 
-def print_game(verticals, horizontals, bs): ## Takes input as the horizontals and verticals of the game. Prints the board. Doesn't account for drawing letters in squares that have been won
+def repl_print_game(verticals, horizontals, bs): ##if you're in repl.it, turn this into print_game and delete the function below
   
     for index in range(0, bs+1):
         for index_2 in range(index*bs, index*bs + bs):
@@ -23,6 +23,23 @@ def print_game(verticals, horizontals, bs): ## Takes input as the horizontals an
                     print('{}|  {}'.format(white, reset), end='')
                 else:
                     print('{}|  {}'.format(black, reset), end='')
+        print()
+        
+def print_game(verticals, horizontals, bs): ## Takes input as the horizontals and verticals of the game. Prints the board. Doesn't account for drawing letters in squares that have been won
+  
+    for index in range(0, bs+1):
+        for index_2 in range(index*bs, index*bs + bs):
+            if horizontals[index_2]==1:
+                print(' --', end='')
+            else:
+                print('   ', end='')
+        print()
+        if index!=bs:
+            for index_3 in range(index*(bs+1), index*(bs+1) + bs + 1):
+                if verticals[index_3]==1:
+                    print('|  '.format(white, reset), end='')
+                else:
+                    print('   '.format(black, reset), end='')
         print()
                 
 def completed_squares(verticals, horizontals, bs): ## Returns the number of completed squares (all players)
@@ -174,4 +191,3 @@ else:
     
   else:
     print('Draw')
-
