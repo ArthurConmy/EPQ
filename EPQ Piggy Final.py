@@ -4,9 +4,7 @@ from random import randint
 
 white='\033[1;37m'
 black='\033[1;30m'
-reset='\033[0m' ## turn these colours on on repl.it. Not in IDLE tho tho
-
-## print('{}ofwgkta{}'.format(white, reset)) colour test
+reset='\033[0m' ## turn these colours on on repl.it. Not in IDLE tho
 
 def repl_print_game(verticals, horizontals, bs): ##if you're in repl.it, turn this into print_game and delete the function below
   
@@ -25,7 +23,7 @@ def repl_print_game(verticals, horizontals, bs): ##if you're in repl.it, turn th
                     print('{}|  {}'.format(black, reset), end='')
         print()
         
-def print_game(verticals, horizontals, bs): ## Takes input as the horizontals and verticals of the game. Prints the board. Doesn't account for drawing letters in squares that have been won
+def print_game(verticals, horizontals, bs):
   
     for index in range(0, bs+1):
         for index_2 in range(index*bs, index*bs + bs):
