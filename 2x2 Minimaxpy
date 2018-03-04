@@ -1,3 +1,7 @@
+## this program simulates all possible games of 2x2 Dots and Boxes
+## then uses minimax to label 'win', 'loss' and 'draw' games, w/ backtracking
+## then you can play against the program!
+
 import time
 T=time.time()
 
@@ -6,7 +10,7 @@ game_tree=[[], [[[], [1, 0, 0, 0, 0, 0], [0, 0, 0, 0, 0, 0], 1, 0, 0, -1], [[], 
 ## game_tree[depth_index][leaf_index][0] is list of the leaf_index of the leaf's parentS - note the plural that should make the bloody program actually run
 ## game_tree[depth_index][leaf_index][1] are the horizontals (list) 
 ## game_tree[depth_index][leaf_index][2] are the verticals (list) 
-## game_tree[depth_index][leaf_index][3] is the player-who-has-just-made-a-move's turn. But I think it's next players turrn ...
+## game_tree[depth_index][leaf_index][3] next players turrn ...
 ## game_tree[depth_index][leaf_index][4] is player 0's no. squares won
 ## game_tree[depth_index][leaf_index][5] is player 1's no. squares won
 ## game_tree[depth_index][leaf_index][6] player who has won (False if still open game) - not yet actually used
