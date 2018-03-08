@@ -64,20 +64,13 @@ def is_winnable_square(verticals, horizontals, board_size):
 board_size=4
 
 hs=[0 for i in range(0, board_size*(board_size+1))]
-vs=[0 for i in range(0, board_size*(board_size+1))] ## horizontals and verticals of the board have been initialised
+vs=[0 for i in range(0, board_size*(board_size+1))]
 
-for i in range(0, board_size*(board_size+1)):
-    hs.append(0)
-    vs.append(0)
+no_players=2
 
-no_players=2 ##int(input('Enter number of players'))
+our_completed_squares=[0 for i in range(0, no_players)]
 
-our_completed_squares=[]
-
-for do_this in range(0, no_players):
-  our_completed_squares.append(0)
-
-players_turn=0 ## player 1 is 0, and player 2 is 1. Also this starts at 1 so the loop can begin with the increment
+players_turn=0
 
 for turn in count():
   
