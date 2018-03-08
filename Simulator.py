@@ -63,8 +63,8 @@ def is_winnable_square(verticals, horizontals, board_size):
 
 board_size=4
 
-hs=[]
-vs=[] ## horizontals and verticals of the board have been initialised
+hs=[0 for i in range(0, board_size*(board_size+1))]
+vs=[0 for i in range(0, board_size*(board_size+1))] ## horizontals and verticals of the board have been initialised
 
 for i in range(0, board_size*(board_size+1)):
     hs.append(0)
