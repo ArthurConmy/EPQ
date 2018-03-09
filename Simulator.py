@@ -25,13 +25,16 @@ def print_game(verticals, horizontals, bs): ## Takes input as the horizontals an
                     print('{}|  {}'.format(black, reset), end='')
         print()
                 
-def completed_squares(verticals, horizontals, bs): ## Returns the number of completed squares (all players)
+def completed_squares(verticals, horizontals, bs):
 
     the_completed_squares=[]
     
-    for upper in range(0, len(horizontals)-bs): ## dependent on board_size !!!
-        if horizontals[upper]==1 and horizontals[upper+bs]==1 and verticals[upper + upper//bs]==1 and verticals[upper + upper//bs + 1]==1:
-            the_completed_squares.append(upper)
+    for upper in range(0, len(horizontals)-bs): 
+        if horizontals[upper]==1: 
+            if horizontals[upper+bs]==1:
+                if verticals[upper + upper//bs]==1: 
+                    if verticals[upper + upper//bs + 1]==1:
+                        the_completed_squares.append(upper)
                 
     return len(the_completed_squares)
     
@@ -72,7 +75,7 @@ our_completed_squares=[0 for i in range(0, no_players)]
 
 players_turn=0
 
-for turn in count():
+for turn in count(1):
   
   print_game(vs, hs, board_size)
   
@@ -94,3 +97,16 @@ for turn in count():
   else:
     players_turn+=1
     players_turn=players_turn%2
+    
+  if vs.count(0)==0 and hs.count(0)==0:
+    break
+    
+for player in range(0, no_players):
+  print('Player', player+1, 'has won', our_completed_squares[player], 'squares', end=' ')
+  
+  if max(no_completed_squares) == our_completed_squares[player]:
+    print('And so is a (potentially) joint winner!)
+  
+  else:
+    print()
+
