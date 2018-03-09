@@ -22,4 +22,17 @@ players_turn=0
 ```
 These 10 lines of code are the initialisation of a Dots and Boxes game. The variables defined are `board_size`, `hs`, `vs`, `no_players`, `our_completed_squares` and `players_turn`. Several are self-explanatory, but `hs` and `vs` are lists that store boolean values for whether each horizontal and vertical has been filled in. The reason for their abbreviated identifiers is their prevalence in the code, which means that it will be easier to code the rest of the program since typing will be faster.
 
-The looping structure for the program ...
+The looping structure for the program is not particularly complex it is essentially a `Python while True:` loop, but not exactly this since we would like to be able to know which turn of the game it is. Instead
+
+```Python
+
+from itertools import count 
+
+## ... things
+
+for turn in count(1):
+
+  ## each turn of the game
+```
+
+creates a variable `Python turn` that 
