@@ -44,6 +44,31 @@ print_game(vs, hs, board_size)
 which calls the function
 
 ``` Python
+def print_game(verticals, horizontals, bs):
+  
+    for index in range(0, bs+1):
+        for index_2 in range(index*bs, index*bs + bs):
+            if horizontals[index_2]==1:
+                print('{} --', end='')
+            else:
+                print('{}   {}', end='')
+        print()
+        if index!=bs:
+            for index_3 in range(index*(bs+1), index*(bs+1) + bs + 1):
+                if verticals[index_3]==1:
+                    print('{}|  {}'), end='')
+                else:
+                    print('{}   {}', end='')
+        print()
+```
+
+which takes the arguments `verticals`, `horizontals` and `bs`, that being the board size of the grid. I tested this function yet found it to be unsatisfactory, especially for large grids; since it is ambiguous as to which line in the grid has been shaded:
+
+INSERT IMAGE
+
+Instead, the following redefinition of `print_game` allows for the lines in the grid yet to be filled in to be coloured in a much darker shade, yet their presence is still definite
+
+``` Python
 def print_game(verticals, horizontals, bs): ## Takes input as the horizontals and verticals of the game. Prints the board. Doesn't account for drawing letters in squares that have been won
   
     for index in range(0, bs+1):
@@ -51,7 +76,7 @@ def print_game(verticals, horizontals, bs): ## Takes input as the horizontals an
             if horizontals[index_2]==1:
                 print('{} --'.format(white), end='')
             else:
-                print('{} --{}'.format(black, reset), end='') ## colour ?!
+                print('{} --{}'.format(black, reset), end='')
         print()
         if index!=bs:
             for index_3 in range(index*(bs+1), index*(bs+1) + bs + 1):
@@ -62,3 +87,4 @@ def print_game(verticals, horizontals, bs): ## Takes input as the horizontals an
         print()
 ```
 
+And within a game on repl.it
