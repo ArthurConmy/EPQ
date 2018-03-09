@@ -87,4 +87,81 @@ def print_game(verticals, horizontals, bs): ## Takes input as the horizontals an
         print()
 ```
 
-And within a game on repl.it
+And within a game on repl.it:
+
+INSERT IMAGE
+
+There is only one more function that must be defined, that is `completed_squares`, that returns the number of completed squares in a given grid within a Dots and Boxes game. This is important for two reasons: it allows us to determine when the turn does not change, i.e, when a player gets another go after they complete a box in a game, and it also allows us to determine who has won the game at its end, by comparing the number of sqaures that each player has won.
+
+```Python
+def completed_squares(verticals, horizontals, bs):
+
+    the_completed_squares=[]
+    
+    for upper in range(0, len(horizontals)-bs): 
+        if horizontals[upper]==1: 
+            if horizontals[upper+bs]==1:
+                if verticals[upper + upper//bs]==1: 
+                    if verticals[upper + upper//bs + 1]==1:
+                        the_completed_squares.append(upper)
+                
+    return len(the_completed_squares)
+```
+With all necessary functions defined, the remaining code to simulate a game of Dots and Boxes is very brief:
+
+``` Python
+for turn in count(1):
+  
+  ## FIRST STAGE
+  
+  print_game(vs, hs, board_size)
+  
+  ## SECOND STAGE
+  
+  move_made=input('Player '+str(players_turn+1)+' Enter your move')
+  move_made=[move_made[0], int(move_made[1:])]
+    
+  if move_made[0]=='h':
+    hs[move_made[1]]=1
+    
+  if move_made[0]=='v':
+    vs[move_made[1]]=1
+
+  ## THIRD STAGE
+
+  if completed_squares(vs, hs, board_size) > sum(our_completed_squares):
+    print('Player', players_turn+1, 'takes', completed_squares(vs, hs, board_size)-sum(our_completed_squares), 'square(s)! They get another go!')
+    our_completed_squares[players_turn]+=completed_squares(vs, hs, board_size)-sum(our_completed_squares)
+  
+  else:
+    players_turn+=1
+    players_turn=players_turn%2
+```
+
+There are essentially three stages to the turn loop: the first stage is to call `print_game` and print out the current state of the board. This comes first because it allows the player entering their move to see the board that they are making a move on, which is very important because of the somewhat unintuitive input format.
+
+Secondly, the move input is taken and then acted upon: the corresponding index of `vs` or `hs` is turned from `0`, representing 'false' to `1`, representing 'true'.
+
+Thirdly and finally, `our_completed_squares` is updated based upon whether any new squares have been formed, this of course being determined from the output of the `completed_squares` function. If squares have not been won, then the turn is rotated to the other player.
+
+The final part of the code is as follows
+
+``` Python
+  if vs.count(0)==0 and hs.count(0)==0:
+    break
+    
+for player in range(0, no_players):
+  print('Player', player+1, 'has won', our_completed_squares[player], 'squares', end=' ')
+  
+  if max(no_completed_squares) == our_completed_squares[player]:
+    print('And so is a (potentially) joint winner!)
+  
+  else:
+    print() 
+```
+
+The first `if` statement is part of the `turn` loop yet references the end of the game so we mention it here. It breaks out of that loop if all lines have been drawn in.
+
+Finally, the program prints out the scores of all players in the game, and prints a message if they are a winner.
+
+## Piggy.py
