@@ -169,3 +169,13 @@ Finally, the program prints out the scores of all players in the game, and print
 ## 2x2 Minimax.py
 
 ## General Solution.py
+
+The final program in this repository and my project as a whole is the general Dots and Boxes AI player. Again, this program shall use the minimax algorithm in order to make its moves, yet whereas in `2x2 Minimax.py` the minimax algorithm used finished games to backtrack, this program shall use Berlekamp's 'chain rule' (see accompanying essay) in order to reach game states from which it will win.
+
+However, the chain rule is not enough on its own to make an AI player, as after the critical state where the right number of chains are obtained, the AI player will still need to take squares from such chains. Thus there are two parts to the implementation of this final program.
+
+The first function that will need to be implemented here is the function `is_critical` that determines whether the game is in a critical state, i.e any move will cause a sacrifice:
+
+``` Python
+def is_critical(vs, hs, bs):
+```
