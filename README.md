@@ -69,8 +69,8 @@ INSERT IMAGE
 Instead, the following redefinition of `print_game` allows for the lines in the grid yet to be filled in to be coloured in a much darker shade, yet their presence is still definite
 
 ``` Python
-def print_game(verticals, horizontals, bs): ## Takes input as the horizontals and verticals of the game. Prints the board. Doesn't account for drawing letters in squares that have been won
-  
+def print_game(verticals, horizontals, bs): 
+
     for index in range(0, bs+1):
         for index_2 in range(index*bs, index*bs + bs):
             if horizontals[index_2]==1:
@@ -165,3 +165,7 @@ The first `if` statement is part of the `turn` loop yet references the end of th
 Finally, the program prints out the scores of all players in the game, and prints a message if they are a winner.
 
 ## Piggy.py
+
+## 2x2 Minimax.py
+
+## General Solution.py
