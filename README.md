@@ -194,10 +194,84 @@ for depth in range(2, 13):
 
     for index in range(0, len(game_tree[depth-1])): ## for leaf in previous level
 
-        current_leaf=deep_copy(game_tree[depth-1][index])
+        current_leaf=game_tree[depth-1][index] ## eek
 ```
 
 These are the first lines of the loop of the body of the program. They iterate through `depth`s which are the sub-lists of every game state with `depth` number of moves made, and then iterate through each move in the previous depth so that the future moves build off of these moves. 
+
+``` Python
+for horizontal in range(0, 6):
+        if current_leaf[1][horizontal]==0:
+               new_leaf=current_leaf ## this doesn't behave properly
+```
+
+This was the initial code that I used to make each new move that could be made from the stem game state. However, the behaviour of Python with regard to intialising lists I found to be unsuitable for my needs, as all changes that were later made to `new_leaf` were also made to `current_leaf`, which, for example caused all moves to be superimposed onto `current_leaf` in the second depth, and the program to thus crash. This prompted the definition of the function
+
+```Python
+def deep_copy(lis):
+    new_lis=[]
+    for elem in lis:
+        if type(elem)==list:
+            new_lis.append(deep_copy(elem))
+        else:
+            new_lis.append(elem)
+    return new_lis
+```
+
+Called `deep_copy` because of the nature of the function, to not 'surface copy' lists and cause errors as above. Indeed, the code three segements above was changed to 
+
+``` Python
+for depth in range(2, 13):
+    game_tree.append([]) ## the new depth level
+
+    for index in range(0, len(game_tree[depth-1])): ## for leaf in previous level
+
+        current_leaf=deep_copy(game_tree[depth-1][index]) ## has become deep_copy
+```
+
+and the code two segements above
+
+``` Python
+for horizontal in range(0, 6):
+        if current_leaf[1][horizontal]==0:
+               new_leaf=deep_copy(current_leaf) ## now deep_copy
+```
+
+The next segement of the code manipulates `new_leaf` to update the number of squares won in this game state, whose turn it is, and finally if the game has been won.
+
+``` Python
+                new_leaf[0]=[index] ## this is the parent branch
+                
+                new_leaf[1][horizontal]=1
+
+                squares_difference=completed_squares(new_leaf[2], new_leaf[1])-completed_squares(current_leaf[2], current_leaf[1])
+
+                if squares_difference>0: ## if squares have been won, we need to know about it
+                    new_leaf[4+new_leaf[3]]+=squares_difference
+
+                    if new_leaf[4] > 2: new_leaf[6]=0
+                    if new_leaf[5] > 2: new_leaf[6]=1
+
+                else: ## change turn. this means that what we're measuring is *next* turn
+                    new_leaf[3]=(new_leaf[3]+1)%2
+```
+
+It is here where the comments on what exactly `new_leaf[2]` was doing were immensely useful. Note that the function `completed_squares` has been copied over to this program from the previous two programs. The final element of the main body of the program is the control sequence
+
+```Python
+                if isin(game_tree[-1], new_leaf)==-1:
+                    game_tree[-1].append(new_leaf)
+
+                else:
+                    new_index=isin(game_tree[-1], new_leaf)
+                    game_tree[-1][new_index][0].append(index)
+```
+
+that was changed from an earlier iteration of the program in order to drastically increase the efficiency of the program. See the main essay for commentary on this stage, as its illustration of the power of optimisation was an important talking point in my essay.
+
+What this block of code is doing is making sure that game states are not added twice to the `game_tree`. This is often an important step in Breadth First Search (BFS) algorithms. Once again, see the essay.
+
+The function `is_in` is fairly simple ...
 
 ## General Solution.py
 
