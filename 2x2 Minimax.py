@@ -7,13 +7,13 @@ T=time.time()
 
 game_tree=[[], [[[], [1, 0, 0, 0, 0, 0], [0, 0, 0, 0, 0, 0], 1, 0, 0, -1], [[], [0, 0, 0, 0, 0, 0], [0, 1, 0, 0, 0, 0], 1, 0, 0, -1]]]
 
-## game_tree[depth_index][leaf_index][0] is list of the leaf_index of the leaf's parentS - note the plural that should make the bloody program actually run
+## game_tree[depth_index][leaf_index][0] is list of the leaf_index of the leaf's parents
 ## game_tree[depth_index][leaf_index][1] are the horizontals (list) 
 ## game_tree[depth_index][leaf_index][2] are the verticals (list) 
-## game_tree[depth_index][leaf_index][3] next players turrn ...
+## game_tree[depth_index][leaf_index][3] next players turn
 ## game_tree[depth_index][leaf_index][4] is player 0's no. squares won
 ## game_tree[depth_index][leaf_index][5] is player 1's no. squares won
-## game_tree[depth_index][leaf_index][6] player who has won (False if still open game) - not yet actually used
+## game_tree[depth_index][leaf_index][6] player who has won (-1 if still open game)
 
 def isin(big, small):
     for thing in big:
