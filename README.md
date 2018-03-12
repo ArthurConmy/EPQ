@@ -168,6 +168,37 @@ Finally, the program prints out the scores of all players in the game, and print
 
 ## 2x2 Minimax.py
 
+The brute force minimax algorithm for a 2x2 game of Dots and Boxes shall pivot around the game tree of the game, that is, a list of all possible states that the game could be in. It is initialised as follows:
+
+```Python
+game_tree=[[], [[[], [1, 0, 0, 0, 0, 0], [0, 0, 0, 0, 0, 0], 1, 0, 0, -1], [[], [0, 0, 0, 0, 0, 0], [0, 1, 0, 0, 0, 0], 1, 0, 0, -1]]]
+```
+
+This is a 3D Array that, here, stores the game states that are 'first horizontal filled in' and 'second vertical filled in'. In fact, these are the only first two moves of the game because of the many symmetries of the 2x2 grid. The many different components of each game state are described as follows:
+
+```Python
+## game_tree[depth_index][leaf_index][0] is list of the leaf_index of the leaf's parents
+## game_tree[depth_index][leaf_index][1] are the horizontals (list) 
+## game_tree[depth_index][leaf_index][2] are the verticals (list) 
+## game_tree[depth_index][leaf_index][3] next players turn
+## game_tree[depth_index][leaf_index][4] is player 0's no. squares won
+## game_tree[depth_index][leaf_index][5] is player 1's no. squares won
+## game_tree[depth_index][leaf_index][6] player who has won (-1 if still open game)
+```
+
+This extended comment was kept in this program as I developed it since it was an extremely useful reference that allowed for the code to be vastly shortened yet still easy to write.
+
+```Python
+for depth in range(2, 13):
+    game_tree.append([]) ## the new depth level
+
+    for index in range(0, len(game_tree[depth-1])): ## for leaf in previous level
+
+        current_leaf=deep_copy(game_tree[depth-1][index])
+```
+
+These are the first lines of the loop of the body of the program. They iterate through `depth`s which are the sub-lists of every game state with `depth` number of moves made, and then iterate through each move in the previous depth so that the future moves build off of these moves. 
+
 ## General Solution.py
 
 The final program in this repository and my project as a whole is the general Dots and Boxes AI player. Again, this program shall use the minimax algorithm in order to make its moves, yet whereas in `2x2 Minimax.py` the minimax algorithm used finished games to backtrack, this program shall use Berlekamp's 'chain rule' (see accompanying essay) in order to reach game states from which it will win.
