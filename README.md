@@ -304,9 +304,10 @@ def is_critical(hs, vs, rs, cs): ## try to find a non critical
 
                         newv = vs[:]
 
-                        newh[vertical] = 1
+                        newv[vertical] = 1
 
                         if is_winnable_square(hs, newv, rs, cs) == False:
 
                                 return False
+
         return True```
