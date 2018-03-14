@@ -279,8 +279,8 @@ The final program in this repository and my project as a whole is the general Do
 
 However, the chain rule is not enough on its own to make an AI player, as after the critical state where the right number of chains are obtained, the AI player will still need to take squares from such chains. Thus there are two parts to the implementation of this final program.
 
-The first function that will need to be implemented here is the function `is_critical` that determines whether the game is in a critical state, i.e any move will cause a sacrifice:
+The first function that will need to be implemented here is the function `is_critical` that determines whether the game is in a critical state, i.e any move will cause a sacrifice. We reimplement (with, as above, some modifications in order to ensure that this function works on any size grid, not simply square grids) the function ```is_winnable_square``` from the ```Piggy.py``` program, in order to determine whether each move that we make on the current board could lead to the opponent taking a square:
 
-``` Python
-def is_critical(vs, hs, bs):
+```Python
+def is_critical(vs, hs, rs, cs):
 ```
