@@ -105,7 +105,7 @@ for player in range(0, no_players):
   print('Player', player+1, 'has won', our_completed_squares[player], 'squares', end=' ')
   
   if max(no_completed_squares) == our_completed_squares[player]:
-    print('And so is a (potentially) joint winner!)
+    print('And so is a (potentially) joint winner!')
   
   else:
     print()
