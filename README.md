@@ -310,4 +310,59 @@ def is_critical(hs, vs, rs, cs): ## try to find a non critical
 
                                 return False
 
-        return True```
+        return True
+```
+
+The basic control flow of the game of Dots-and-Boxes is little changed from that in the `Simulator.py` or `Piggy.py`:
+
+```
+for turn in count():
+
+        move_made = False
+
+        if players_turn == 0:
+
+        ## players turn
+
+                move_made = input('It\'s your move, player! >')
+
+        else: ## AI turn
+
+                if f(rows*columns + rows + columns) // f(rows*columns) < 10**8: ## is this a good bound ?!
+
+                        ## we can minimax for critical state, check for parity of chains
+
+                        pass
+
+                else:
+
+                        if is_winnable_square(hs, vs, rs, cs)!=False: ## we can take a square!! 
+
+                                move_made=is_winnable_square(hs, vs, rs, cs)
+                             
+                        ## take a square if it's there
+
+                        ## don't sacrifice otherwise
+
+                        pass
+
+        completed = completed_squares(vs, hs, rows, columns) ## prior completed squares
+
+        if move_made[0] == 'h':
+
+                hs[int(move_made[1:])] = 1
+
+        if move_made[1] == 'v':
+
+                vs[int(move_made[1:])] = 1
+
+        if completed_squares(hs, vs, rows, columns) > completed: ## rotate turn
+
+                our_completed_squares[players_turn] += completed_squares(hs, vs, rows, columns)-completed
+
+        else: ## rotate turn
+
+                players_turn+=1
+                players_turn=players_turn%2
+```
+
