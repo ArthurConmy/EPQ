@@ -313,7 +313,7 @@ def is_critical(hs, vs, rs, cs): ## try to find a non critical
         return True
 ```
 
-The basic control flow of the game of Dots-and-Boxes is little changed from that in the `Simulator.py` or `Piggy.py`:
+The basic control flow of the game of Dots-and-Boxes is little changed from that in the `Simulator.py` or `Piggy.py`. The computer player's control flow is documented in commented-out pseudocode in order to guide the programming of this crucial section.
 
 ``` Python
 for turn in count():
@@ -328,23 +328,26 @@ for turn in count():
 
         else: ## AI turn
 
-                if f(rows*columns + rows + columns) // f(rows*columns) < 10**8: ## is this a good bound ?!
+                if is_winnable_square(vs, hs, rows, columns)!=False:
 
-                        ## we can minimax for critical state, check for parity of chains
+                        ## if neutral squares left
+                        ## then take square
 
-                        pass
+                        ## else if squares in long chain
+                        ## then take all but last two
 
-                else:
-
-                        if is_winnable_square(hs, vs, rs, cs)!=False: ## we can take a square!! 
-
-                                move_made=is_winnable_square(hs, vs, rs, cs)
-                             
-                        ## take a square if it's there
-
-                        ## don't sacrifice otherwise
+                        ## else take square
 
                         pass
+
+                else: ## no winnable squares
+
+                        ## if can play neutral move
+                        ## then minimax to try to reach right parity of chains
+
+                        ## else sacrifice the least valuable chain, attempting to not let the sacrifice be returned
+
+                       pass
 
         completed = completed_squares(vs, hs, rows, columns) ## prior completed squares
 
