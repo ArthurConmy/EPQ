@@ -315,7 +315,7 @@ def is_critical(hs, vs, rs, cs): ## try to find a non critical
 
 The basic control flow of the game of Dots-and-Boxes is little changed from that in the `Simulator.py` or `Piggy.py`:
 
-```
+``` Python
 for turn in count():
 
         move_made = False
