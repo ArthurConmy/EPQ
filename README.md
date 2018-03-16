@@ -369,3 +369,63 @@ for turn in count():
                 players_turn=players_turn%2
 ```
 
+The pseudocode above once more requires the definition of several more functions, including ```is_neutral_square``` to return a boolean value whether there is a move that can be made that will not cause the opponenent to be able to take any squares. This function in turn requires the definition of the function ```no_winnable_squares``` that returns the number of winnable squares on the board:
+
+```Python
+def no_winnable_squares(hs, vs, rs, cs):
+
+        no=0
+
+        for horizontal in range(0, rs*cs):
+
+                no_filled = 0
+
+                if hs[horizontal] == 1:
+                        no_filled+=1
+                else:
+                        move = 'h'+str(horizontal)
+
+                if hs[horizontal + cs] == 1:
+                        no_filled+=1
+                else:
+                        move = 'h'+str(horizontal + cs)
+
+                if vs[horizontal + horizontal//cs] == 1:
+                        no_filled+=1
+                else:
+                        move = 'v'+str(horizontal + horizontal//cs)
+
+                if vs[horizontal + horizontal//cs + 1] == 1:
+                        no_filled+=1
+                else:
+                        move = 'v'+str(horizontal + horizontal//cs + 1)
+
+                if no_filled == 3:
+                        no+=1
+
+        return no
+
+def is_neutral_square(hs, vs, rs, cs): ## is there a neutral move that can be made ?
+
+        no_winnable = no_winnable_squares(hs, vs, rs, cs)
+
+        for h in range(0, rs*cs):
+
+                if hs[h] == 1: continue
+                
+                copyh=hs[:]
+                copyh[h]=1
+
+                if no_winnable_squares(copyh, vs, rs, cs) == no_winnable: return True ## ie theres a move that doesn't change the number of winnable squares
+                
+        for v in range(0, rs*cs):
+
+                if vs[v] == 1: continue
+
+                copyv=vs[:]
+                copyv[v]=1
+
+                if no_winnable_squares(hs, copyv, rs, cs) == no_winnable: return True
+
+        return False
+```
