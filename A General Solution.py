@@ -1,5 +1,27 @@
 from itertools import count
 from math import factorial as f
+from random import randint
+
+white='\033[1;37m'
+black='\033[1;30m'
+reset='\033[0m'
+
+def print_game(horizontals, verticals, bs): ## Takes input as the horizontals and verticals of the game. Prints the board. Doesn't account for drawing letters in squares that have been won
+  
+    for index in range(0, bs+1):
+        for index_2 in range(index*bs, index*bs + bs):
+            if horizontals[index_2]==1:
+                print('{} --'.format(white), end='')
+            else:
+                print('{} --{}'.format(black, reset), end='') ## colour ?!
+        print()
+        if index!=bs:
+            for index_3 in range(index*(bs+1), index*(bs+1) + bs + 1):
+                if verticals[index_3]==1:
+                    print('{}|  {}'.format(white, reset), end='')
+                else:
+                    print('{}|  {}'.format(black, reset), end='')
+        print()
 
 def is_critical(hs, vs, rs, cs): ## try to find a non critical
 
@@ -62,6 +84,63 @@ def is_winnable_square(hs, vs, rs, cs):
         else:
                 return False
 
+def no_winnable_squares(hs, vs, rs, cs):
+
+        no=0
+
+        for horizontal in range(0, rs*cs):
+
+                no_filled = 0
+
+                if hs[horizontal] == 1:
+                        no_filled+=1
+                else:
+                        move = 'h'+str(horizontal)
+
+                if hs[horizontal + cs] == 1:
+                        no_filled+=1
+                else:
+                        move = 'h'+str(horizontal + cs)
+
+                if vs[horizontal + horizontal//cs] == 1:
+                        no_filled+=1
+                else:
+                        move = 'v'+str(horizontal + horizontal//cs)
+
+                if vs[horizontal + horizontal//cs + 1] == 1:
+                        no_filled+=1
+                else:
+                        move = 'v'+str(horizontal + horizontal//cs + 1)
+
+                if no_filled == 3:
+                        no+=1
+
+        return no
+
+def is_neutral_square(hs, vs, rs, cs): ## is there a neutral move that can be made ?
+
+        no_winnable = no_winnable_squares(hs, vs, rs, cs)
+
+        for h in range(0, rs*cs):
+
+                if hs[h] == 1: continue
+                
+                copyh=hs[:]
+                copyh[h]=1
+
+                if no_winnable_squares(copyh, vs, rs, cs) == no_winnable: return True ## ie theres a move that doesn't change the number of winnable squares
+                
+        for v in range(0, rs*cs):
+
+                if vs[v] == 1: continue
+
+                copyv=vs[:]
+                copyv[v]=1
+
+                if no_winnable_squares(hs, copyv, rs, cs) == no_winnable: return True
+
+        return False
+
 def completed_squares(hs, vs, rs, cs): ## Returns the number of completed squares (all players)
 
     the_completed_squares=0 ##=[]
@@ -72,8 +151,34 @@ def completed_squares(hs, vs, rs, cs): ## Returns the number of completed square
                 
     return the_completed_squares ## used to be len
 
-rows = 2
-columns = 3
+def no_consecutive_takeable_squares(hs, vs, rs, cs): ## take as many squares as possible!
+
+    copyh = hs[:]
+    copyv = vs[:]
+
+    number = 0
+
+    while is_winnable_square(copyh, copyv, rs, cs) != False:
+
+        number+=1
+
+        move_made = is_winnable_square(copyh, copyv, rs, cs)
+        print(move_made)
+
+        if move_made[0] == 'h':
+
+                copyh[int(move_made[1:])] = 1
+                #print('changed')
+
+        if move_made[0] == 'v':
+
+                copyv[int(move_made[1:])] = 1
+                #print('changed too')
+
+    return number
+
+rows = 4
+columns = 4
 
 hs=[0 for i in range(0, columns*(rows+1))]
 vs=[0 for i in range(0, rows*(columns+1))]
@@ -84,9 +189,13 @@ our_completed_squares=[0 for i in range(0, no_players)]
 
 players_turn=0
 
-for turn in count():
+critical_yet = False
 
-        ##move_made = False
+for turn in count():
+  
+        print_game(hs, vs, 4)
+
+        move_made = False
 
         if players_turn == 0:
 
@@ -98,26 +207,135 @@ for turn in count():
 
         else: ## AI turn
 
-                if f(rows*columns + rows + columns) // f(rows*columns) < 10**8: ## is this a good bound ?!
+                if is_winnable_square(vs, hs, rows, columns)!=False:
 
-                        ## we can minimax for critical state, check for parity of chains
+                        ## if neutral squares left
+                        ## then take square
 
-                        pass
+                        if is_neutral_square(hs, vs, rows, columns):
 
-                else:
+                                move_made = is_winnable_square(vs, hs, rows, columns)
 
-                        if is_winnable_square(hs, vs, rs, cs)!=False: ## we can take a square!! though the way below to take that square may be bad ...
+                        ## else if squares in long chain
+                        ## then take all but last two
 
-                                move_made=is_winnable_square(hs, vs, rs, cs)
+                        ## okay several functions to be defined here
+                        ## one function that takes as many squares as it can, so we know how many squares are winnable
+                        ## another that lists all moves that are part of 
 
+                        else: ## NO neutral squares
 
+                            if no_consecutive_takeable_squares(hs, vs, rows, columns)>2: ## multiple takeable squares
 
-                                
-                        ## take a square if it's there
+                                move_made = is_winnable_square(vs, hs, rows, columns)
 
-                        ## don't sacrifice otherwise
+                            else: ## no_consecutive_takeable_squares is EQUAL to 2.
 
-                        pass
+                                ##try and make move that doesn't cause completed squares to increase
+
+                                is_move_made = False
+
+                                for horizontal in range(0, (rows+1)*cs):
+
+                                    if hs[horizontal]==1: continue
+
+                                    copyh=hs[:]
+                                    copyv=vs[:]
+
+                                    copyh[horizontal]=1
+
+                                    if completed_squares(hs, vs, rows, columns)==completed_squares(copyh, copyv, rows, columns):
+
+                                        ## ie theres a 'neutral' move
+
+                                        is_move_made=True
+                                        move_made='h'+str(horizontal)
+
+                                        break
+
+                                for vertical in range(0, (columns+1)*rows):
+
+                                    if vs[vertical]==1: continue
+
+                                    copyh=hs[:]
+                                    copyv=vs[:]
+
+                                    copyv[vertical]=1
+
+                                    if completed_squares(hs, vs, rows, columns)==completed_squares(copyh, copyv, rows, columns):
+
+                                        ## ie theres a 'neutral' move
+
+                                        is_move_made=True
+                                        move_made='v'+str(vertical)
+
+                                        break
+
+                                if is_move_made==False:
+
+                                    move_made=is_winnable_square(vs, hs, rows, columns)
+
+                                    ## bit peak but we'll just have to make sacrifices next turn
+                        ### THINGS:
+                            #else:
+
+                            #        ## okay ... simulate until we can no longer take squares or something?
+
+                            #        chain_size = 0
+
+                            #        if chain_size > 2:
+
+                            #                ## take all but last two
+                            #                pass
+
+                            #        else: ## the square is not part of a long chain
+
+                            #                ## hmm ... we should try and not take it!
+                            #                move_made = is_winnable_square(vs, hs, rows, columns)
+
+                            ### else take square
+
+                            #pass
+
+                else: ## no winnable squares
+
+                        ## if can play neutral move
+                        ## then minimax to try to reach right parity of chains
+                        ## (if f(rows*columns + rows + columns) // f(rows*columns) < 10**8: ## is this a good bound ?!)
+
+                        ## else sacrifice the least valuable chain. AND ACTUALLY SACRIFICE IT, NOT JUST LET THEM RETURN THE FAVOR
+
+                        if is_neutral_square(hs, vs, rows, columns):
+
+                            ## neutral square to be taken
+
+                            candidate_moves=[]
+
+                            for horizontal in range(0, (rows+1)*columns):
+
+                                if hs[horizontal]==1: continue
+
+                                copyh=hs[:]
+                                copyv=vs[:]
+
+                                copyh[horizontal]=1
+
+                                if is_winnable_square(copyh, copyv, rows, columns)==False:
+                                    candidate_moves.append('h'+str(horizontal))
+
+                            for vertical in range(0, (columns+1)*rows):
+
+                                if vs[vertical]==1: continue
+
+                                copyh=hs[:]
+                                copyv=vs[:]
+
+                                copyv[vertical]=1
+
+                                if is_winnable_square(copyh, copyv, rows, columns)==False:
+                                    candidate_moves.append('v'+str(vertical))
+
+                            move_made = candidate_moves[randint(0, len(candidate_moves)-1)]
 
         completed = completed_squares(vs, hs, rows, columns) ## prior completed squares
 
@@ -125,7 +343,7 @@ for turn in count():
 
                 hs[int(move_made[1:])] = 1
 
-        if move_made[1] == 'v':
+        if move_made[0] == 'v':
 
                 vs[int(move_made[1:])] = 1
 
