@@ -177,8 +177,8 @@ def no_consecutive_takeable_squares(hs, vs, rs, cs): ## take as many squares as 
 
     return number
 
-rows = 2 
-columns = 2
+rows = 4 
+columns = 4
 
 hs=[0 for i in range(0, columns*(rows+1))]
 vs=[0 for i in range(0, rows*(columns+1))]
@@ -248,7 +248,10 @@ for turn in count():
 
                                     copyh[horizontal]=1
 
-                                    if completed_squares(hs, vs, rows, columns)==completed_squares(copyh, copyv, rows, columns):
+                                    ## completed_squares HAS TO BE WRONG. THIS JUST ISN'T WORKING OUT ...
+                                    ## but does that and thing improve the situation ???
+
+                                    if completed_squares(hs, vs, rows, columns)==completed_squares(copyh, copyv, rows, columns) and no_consecutive_takeable_squares(copyh, copyv, rows, columns)==2:
 
                                         ## ie theres a 'neutral' move
 
@@ -266,7 +269,7 @@ for turn in count():
 
                                     copyv[vertical]=1
 
-                                    if completed_squares(hs, vs, rows, columns)==completed_squares(copyh, copyv, rows, columns):
+                                    if completed_squares(hs, vs, rows, columns)==completed_squares(copyh, copyv, rows, columns) and no_consecutive_takeable_squares(copyh, copyv, rows, columns)==2:
 
                                         ## ie theres a 'neutral' move
 
