@@ -121,7 +121,7 @@ def is_neutral_square(hs, vs, rs, cs): ## is there a neutral move that can be ma
 
         no_winnable = no_winnable_squares(hs, vs, rs, cs)
 
-        for h in range(0, rs*cs):
+        for h in range(0, (rs+1)*cs):
 
                 if hs[h] == 1: continue
                 
@@ -130,7 +130,7 @@ def is_neutral_square(hs, vs, rs, cs): ## is there a neutral move that can be ma
 
                 if no_winnable_squares(copyh, vs, rs, cs) == no_winnable: return True ## ie theres a move that doesn't change the number of winnable squares
                 
-        for v in range(0, rs*cs):
+        for v in range(0, rs*(cs+1)):
 
                 if vs[v] == 1: continue
 
@@ -163,7 +163,7 @@ def no_consecutive_takeable_squares(hs, vs, rs, cs): ## take as many squares as 
         number+=1
 
         move_made = is_winnable_square(copyh, copyv, rs, cs)
-        print(move_made)
+        #print(move_made)
 
         if move_made[0] == 'h':
 
@@ -207,14 +207,15 @@ for turn in count():
 
         else: ## AI turn
 
-                if is_winnable_square(vs, hs, rows, columns)!=False:
+                if is_winnable_square(hs, vs, rows, columns)!=False:
 
                         ## if neutral squares left
                         ## then take square
 
                         if is_neutral_square(hs, vs, rows, columns):
 
-                                move_made = is_winnable_square(vs, hs, rows, columns)
+                                move_made = is_winnable_square(hs, vs, rows, columns)
+                                print('Making move thats taking a square because neutral square exists')
 
                         ## else if squares in long chain
                         ## then take all but last two
@@ -227,7 +228,8 @@ for turn in count():
 
                             if no_consecutive_takeable_squares(hs, vs, rows, columns)>2: ## multiple takeable squares
 
-                                move_made = is_winnable_square(vs, hs, rows, columns)
+                                move_made = is_winnable_square(hs, vs, rows, columns)
+                                print('More than 2 winnable squares so getting the winnable square')
 
                             else: ## no_consecutive_takeable_squares is EQUAL to 2.
 
@@ -235,7 +237,7 @@ for turn in count():
 
                                 is_move_made = False
 
-                                for horizontal in range(0, (rows+1)*cs):
+                                for horizontal in range(0, (rows+1)*columns):
 
                                     if hs[horizontal]==1: continue
 
@@ -273,7 +275,12 @@ for turn in count():
 
                                 if is_move_made==False:
 
-                                    move_made=is_winnable_square(vs, hs, rows, columns)
+                                    move_made=is_winnable_square(hs, vs, rows, columns)
+                                    print('can\'t make ;neutral; move')
+
+                                else:
+                                  
+                                    print('there\'s a neutral move')
 
                                     ## bit peak but we'll just have to make sacrifices next turn
                         ### THINGS:
@@ -311,6 +318,8 @@ for turn in count():
 
                             candidate_moves=[]
 
+                            ##print('We\'re making neutral moves')
+
                             for horizontal in range(0, (rows+1)*columns):
 
                                 if hs[horizontal]==1: continue
@@ -336,8 +345,45 @@ for turn in count():
                                     candidate_moves.append('v'+str(vertical))
 
                             move_made = candidate_moves[randint(0, len(candidate_moves)-1)]
+                            print('random neutral move')
+                            
+                        else: ## sacrifice least number of squares
+                        
+                            sacrifice_size = rows*columns ## max possible
+                            
+                            for horizontal in range(0, (rows+1)*columns):
 
-        completed = completed_squares(vs, hs, rows, columns) ## prior completed squares
+                                if hs[horizontal] == 1: continue
+
+                                copyh=hs[:]
+                                copyv=vs[:]
+
+                                copyh[horizontal]=1
+
+                                if no_consecutive_takeable_squares(copyh, copyv, rows, columns) <= sacrifice_size:
+
+                                    sacrifice_size=no_consecutive_takeable_squares(copyh, copyv, rows, columns)
+
+                                    move_made = 'h'+str(horizontal)
+
+                            for vertical in range(0, (columns+1)*rows):
+
+                                if vs[vertical] == 1: continue
+
+                                copyh=hs[:]
+                                copyv=vs[:]
+
+                                copyv[vertical]=1
+
+                                if no_consecutive_takeable_squares(copyh, copyv, rows, columns) <= sacrifice_size:
+
+                                    sacrifice_size=no_consecutive_takeable_squares(copyh, copyv, rows, columns)
+
+                                    move_made = 'v'+str(vertical)
+                                    
+                            print('sacrifices have to be made')
+
+        completed = completed_squares(hs, vs, rows, columns) ## prior completed squares
 
         if move_made[0] == 'h':
 
