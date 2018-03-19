@@ -177,8 +177,8 @@ def no_consecutive_takeable_squares(hs, vs, rs, cs): ## take as many squares as 
 
     return number
 
-rows = 4
-columns = 4
+rows = 2 
+columns = 2
 
 hs=[0 for i in range(0, columns*(rows+1))]
 vs=[0 for i in range(0, rows*(columns+1))]
@@ -193,7 +193,9 @@ critical_yet = False
 
 for turn in count():
   
-        print_game(hs, vs, 4)
+        print_game(hs, vs, rows) ## RELIES ON SQUARE BOARD
+
+        if hs.count(0)+vs.count(0)==0: break ## game over
 
         move_made = False
 
@@ -401,3 +403,15 @@ for turn in count():
 
                 players_turn+=1
                 players_turn=players_turn%2
+                
+print('You took', our_completed_squares[0], 'squares')
+print('The computer took', our_completed_squares[1], 'squares')
+
+if our_completed_squares[0]>our_completed_squares[1]:
+  print('You win!')
+  
+if our_completed_squares[1]>our_completed_squares[0]:
+  print('You lose!')
+  
+if our_completed_squares[0]==our_completed_squares[1]:
+  print('It\'s a draw!')
