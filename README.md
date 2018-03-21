@@ -101,9 +101,13 @@ which takes the arguments `verticals`, `horizontals` and `bs`, that being the bo
 
 At this stage, after a conversation with a friend who I had just played a game against, I decided that this interface was inadequate for the purposes of my Dots-and-Boxes simulator, and thus the future programs too.
 
-Instead, the following redefinition of `print_game` allows for the lines in the grid yet to be filled in to be coloured in a much darker shade, yet their presence is still definite
+Instead, the following redefinition of `print_game` allows for the lines in the grid yet to be filled in to be coloured in a much darker shade, yet their presence is still definite.
 
 ``` Python
+white='\033[1;37m'
+black='\033[1;30m'
+reset='\033[0m'
+
 def print_game(verticals, horizontals, bs): 
 
     for index in range(0, bs+1):
@@ -122,9 +126,11 @@ def print_game(verticals, horizontals, bs):
         print()
 ```
 
-And within a game on repl.it:
+I found such example codes on the website `repl.it` [5]. In fact, in finding the colours available more readily in `repl.it`, and the fact that programs are given a URL immediately, `repl.it` was attractive as an IDE. 
 
-INSERT IMAGE
+| <img src="https://github.com/ArthurConmy/EPQ/blob/images/bad%20interface.png" width="300" height="400"/> |
+|:--:| 
+| *The new interface in `repl.it`. The grid in the background provides a much better Dots-and-Boxes playing experience* |
 
 There is only one more function that must be defined, that is `completed_squares`, that returns the number of completed squares in a given grid within a Dots and Boxes game. This is important for two reasons: it allows us to determine when the turn does not change, i.e, when a player gets another go after they complete a box in a game, and it also allows us to determine who has won the game at its end, by comparing the number of sqaures that each player has won.
 
@@ -492,3 +498,5 @@ is Open. Accessed 21/03/2018
 * [3], National Institute of Standards and Technology: 'Greedy Algorithm': https://xlinux.nist.gov/dads//HTML/greedyalgo.html. Accessed 21/03/2018
 
 * [4], Stanford University, 'Deep Blue': *'... first put forth the idea of a function for evaluating the efficacy of a particular move and a "minimax" algorithm which took advantage of this evaluation function by taking into account the efficacy of future moves that would be made available by any particular move. This work provided a framework for all future research in computer chess playing.'* http://stanford.edu/~cpiech/cs221/apps/deepBlue.html. Accessed 21/03/18
+
+* [5], 'Colored Text!' by @rocco, https://repl.it/@rocco/Coloured-Text. Accessed 20/02/18. 404 not found on 21/03/18; luckily I had forked the project to https://repl.it/@HuskerDu/Coloured-Text. Accessed 21/03/18.
