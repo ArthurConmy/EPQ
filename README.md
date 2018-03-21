@@ -95,9 +95,11 @@ def print_game(verticals, horizontals, bs):
 
 which takes the arguments `verticals`, `horizontals` and `bs`, that being the board size of the grid. I tested this function yet found it to be unsatisfactory, especially for large grids; since it is ambiguous as to which line in the grid has been shaded:
 
-| <img src="https://github.com/ArthurConmy/EPQ/blob/images/bad_interface.png" width="400" height="400"/> |
+| <img src="https://github.com/ArthurConmy/EPQ/blob/images/bad%20interface.png" width="300" height="400"/> |
 |:--:| 
 | *Note the awkward, 'floating' lines in the grid* |
+
+At this stage, after a conversation with a friend who I had just played a game against, I decided that this interface was inadequate for the purposes of my Dots-and-Boxes simulator, and thus the future programs too.
 
 Instead, the following redefinition of `print_game` allows for the lines in the grid yet to be filled in to be coloured in a much darker shade, yet their presence is still definite
 
