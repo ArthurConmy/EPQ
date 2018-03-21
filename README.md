@@ -12,6 +12,8 @@ My aims are as follows:
 
 The programming language that I shall use is the Python programming langauge. 
 
+The IDE to use shall be Python's IDLE
+
 # Simulator.py
 
 In order to get to grips with the Dots and Boxes game, and in particular how the Python programming language facilitates this game, it is worth developing a simulator to play games of Dots and Boxes between several players (all human) and on arbitrarily sized grids.
@@ -377,7 +379,11 @@ for turn in count():
                 players_turn=players_turn%2
 ```
 
-The pseudocode above once more requires the definition of several more functions, including ```is_neutral_square``` to return a boolean value whether there is a move that can be made that will not cause the opponenent to be able to take any squares. This function in turn requires the definition of the function ```no_winnable_squares``` that returns the number of winnable squares on the board:
+The pseudocode above once more requires the definition of several more functions, including ```is_neutral_square``` to return a boolean value whether there is a move that can be made that will not cause the opponenent to be able to take any squares. This function in turn requires the definition of the function ```no_winnable_squares``` that returns the number of winnable squares on the board.
+
+However, before implementing such functions I took a step back to reevaulate a certain aspect of the aims of my project, this being the decision to use IDLE as the IDE for my program. The sheer number of functions already defined in `General Solution.py` made navigating the program difficult, so approaching a critical stage where even more functions needed to be defined, I transferred my project to the Visual Studio program, which provides the very useful minimisation tool for functions to make code compact and readable, and in addition to this has adjustable zoom on the mouse which allows for quick naviagtion of the code.
+
+![alt text](https://github.com/ArthurConmy/EPQ/blob/images/vslogo.png)
 
 ```Python
 def no_winnable_squares(hs, vs, rs, cs):
