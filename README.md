@@ -4,15 +4,24 @@ This repository holds all important files in the EPQ qualification I am working 
 
 The following ReadMe also documents the research and development in my project, from its conception towards the final program which I tested against myself.
 
-# Initial Research
+# Initial Aims, Research
 
 My aims are as follows:
 
-```AIMS```
+To develop a working computer opponent to the Dots-and-Boxes game
+To improve the 'working' computer opponent such that it is at the ability of an intermediate ability human player
+To test the computer opponent against myself, to be able to quantify the above aim
 
-The programming language that I shall use is the Python programming langauge. 
+Note that these have been developed from the more general and background research that I have already carried out; see the accompanying essay to this project. My research, however, is ongoing and thus this report, too, is referenced where external sources have influenced my decision making.
 
-The IDE to use shall be Python's IDLE
+In order to meet the above aims, I shall do the following:
+
+Use the Python programming language in order to develop in the following order:
+
+A simulator that allows any number of players to play a game of Dots-and-Boxes on an arbitrarily-sized grid
+A simple greedy algorithm opponent 
+A more complicated (minimax algorithm based) opponent, that only plays Dots-and-Boxes games on smaller grids
+A general minimax opponent
 
 # Simulator.py
 
@@ -383,7 +392,17 @@ The pseudocode above once more requires the definition of several more functions
 
 However, before implementing such functions I took a step back to reevaulate a certain aspect of the aims of my project, this being the decision to use IDLE as the IDE for my program. The sheer number of functions already defined in `General Solution.py` made navigating the program difficult, so approaching a critical stage where even more functions needed to be defined, I transferred my project to the Visual Studio program, which provides the very useful minimisation tool for functions to make code compact and readable, and in addition to this has adjustable zoom on the mouse which allows for quick naviagtion of the code.
 
-![alt text](https://github.com/ArthurConmy/EPQ/blob/images/vslogo.png)
+| <img src="https://github.com/ArthurConmy/EPQ/blob/images/vslogo.png" width="100" height="100"/> |
+|:--:| 
+| *Microsoft Visual Studio* |
+
+| <img src="https://github.com/ArthurConmy/EPQ/blob/images/c1d81fcbfaa34f751e73924e7bf5743d.gif" width="400" height="400"/> |
+|:--:| 
+| *Minimising a function. Blink and you'll miss it!* |
+
+| <img src="https://github.com/ArthurConmy/EPQ/blob/images/7590d0a015e6b50134b384bba53e0370.gif" width="400" height="400"/> |
+|:--:| 
+| *Zooming in to a function* |
 
 ```Python
 def no_winnable_squares(hs, vs, rs, cs):
