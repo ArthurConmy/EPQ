@@ -95,7 +95,9 @@ def print_game(verticals, horizontals, bs):
 
 which takes the arguments `verticals`, `horizontals` and `bs`, that being the board size of the grid. I tested this function yet found it to be unsatisfactory, especially for large grids; since it is ambiguous as to which line in the grid has been shaded:
 
-INSERT IMAGE
+| <img src="https://github.com/ArthurConmy/EPQ/blob/images/bad_interface.png" width="400" height="400"/> |
+|:--:| 
+| *Note the awkward, 'floating' lines in the grid* |
 
 Instead, the following redefinition of `print_game` allows for the lines in the grid yet to be filled in to be coloured in a much darker shade, yet their presence is still definite
 
