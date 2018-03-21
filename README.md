@@ -8,9 +8,9 @@ The following ReadMe also documents the research and development in my project, 
 
 My aims are as follows:
 
-To develop a working computer opponent to the Dots-and-Boxes game
-To improve the 'working' computer opponent such that it is at the ability of an intermediate ability human player
-To test the computer opponent against myself, to be able to quantify the above aim
+* To develop a working computer opponent to the Dots-and-Boxes game
+* To improve the 'working' computer opponent such that it is at the ability of an intermediate ability human player
+* To test the computer opponent against myself, to be able to quantify the above aim
 
 Note that these have been developed from the more general and background research that I have already carried out; see the accompanying essay to this project. My research, however, is ongoing and thus this report, too, is referenced where external sources have influenced my decision making.
 
@@ -18,14 +18,23 @@ In order to meet the above aims, I shall do the following:
 
 Use the Python programming language in order to develop in the following order:
 
-A simulator that allows any number of players to play a game of Dots-and-Boxes on an arbitrarily-sized grid
-A simple greedy algorithm opponent 
-A more complicated (minimax algorithm based) opponent, that only plays Dots-and-Boxes games on smaller grids
-A general minimax opponent
+* A simulator that allows any number of players to play a game of Dots-and-Boxes on an arbitrarily-sized grid
+* A simple greedy algorithm opponent 
+* A more complicated (minimax algorithm based) opponent, that only plays Dots-and-Boxes games on smaller grids
+* A general minimax opponent
+
+There are several decisions made here that need to be expounded and/or justified.
+
+To begin, the choice of Python as the programming language. This was made for two reasons: first, this is the language that I am most familiar with, and secondly, because it is one of the most intuitive languages to read and thus debug [1]. I plan to use the IDLE 
+IDE in order to code my program, which has many features that will be helpful to my project, such as auto-coloured text allowing easy distinguishing between functions, variables and loops [2].
+
+The progression from greedy to minimax algorithm is justified from personal experience and intiution, and by their very defintion [3] greedy algorithms have the inbuilt susceptibility to be weak to more advanced strategies. Being a complex and much-studied game, Dots-and-Boxes is not likely to be a game which a greedy algorithm is effective at playing. On the other hand, minimax algorithms are at the heart of many competitive computer programs [4] for Chess and Draughts, for example.
+
+I began the development of my artefact with the aforementioned simulator program. It's development is described below.
 
 # Simulator.py
 
-In order to get to grips with the Dots and Boxes game, and in particular how the Python programming language facilitates this game, it is worth developing a simulator to play games of Dots and Boxes between several players (all human) and on arbitrarily sized grids.
+The first section of `Simulator.py` is
 
 ```Python
 board_size=4
@@ -39,9 +48,10 @@ our_completed_squares=[0 for i in range(0, no_players)]
 
 players_turn=0
 ```
-These 10 lines of code are the initialisation of a Dots and Boxes game. The variables defined are `board_size`, `hs`, `vs`, `no_players`, `our_completed_squares` and `players_turn`. Several are self-explanatory, but `hs` and `vs` are lists that store boolean values for whether each horizontal and vertical has been filled in. The reason for their abbreviated identifiers is their prevalence in the code, which means that it will be easier to code the rest of the program since typing will be faster.
 
-The looping structure for the program is not particularly complex it is essentially a `while True:` loop, but not exactly this since we would like to be able to know which turn of the game it is. Instead
+These 10 lines of code are the initialisation of a Dots-and-Boxes game. The variables defined are `board_size`, `hs`, `vs`, `no_players`, `our_completed_squares` and `players_turn`. Several are self-explanatory, but `hs` and `vs` are lists that store boolean values for whether each horizontal and vertical has been filled in. The reason for their abbreviated identifiers is their prevalence in the code, which means that it will be easier to code the rest of the program since typing will be faster.
+
+The looping structure for the program is not particularly complex: it is essentially a `while True:` loop, but not exactly this since we would like to be able to know which turn of the game it is. Instead
 
 ```Python
 
@@ -54,7 +64,9 @@ for turn in count(1):
   ## each turn of the game
 ```
 
-creates a variable `turn` that is the turn of the game for which a move is being made. The first piece of code inside this `for` loop is
+creates a variable `turn` that is the turn of the game for which a move is being made. This of course uses the `count` iterator from the  `itertools` library.
+
+The first piece of code inside this `for` loop is
 
 ``` Python
 print_game(vs, hs, board_size)
@@ -463,4 +475,16 @@ def is_neutral_square(hs, vs, rs, cs): ## is there a neutral move that can be ma
         return False
 ```
 
-# REFERENCES!!!
+# References
+
+* [1], from https://www.python.org/about/: 'Python is powerful... and fast; 
+plays well with others; 
+runs everywhere; 
+**is friendly & easy to learn;** 
+is Open. Accessed 21/03/2018
+
+* [2], a complete list of the features of IDLE can be found at: https://docs.python.org/3/library/idle.html. Accessed 21/03/2018
+
+* [3], National Institute of Standards and Technology: 'Greedy Algorithm': https://xlinux.nist.gov/dads//HTML/greedyalgo.html. Accessed 21/03/2018
+
+* [4], Stanford University, 'Deep Blue': *'... first put forth the idea of a function for evaluating the efficacy of a particular move and a "minimax" algorithm which took advantage of this evaluation function by taking into account the efficacy of future moves that would be made available by any particular move. This work provided a framework for all future research in computer chess playing.'* http://stanford.edu/~cpiech/cs221/apps/deepBlue.html. Accessed 21/03/18
