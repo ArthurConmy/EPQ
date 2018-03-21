@@ -128,7 +128,7 @@ def print_game(verticals, horizontals, bs):
 
 I found such example codes on the website `repl.it` [5]. In fact, in finding the colours available more readily in `repl.it`, and the fact that programs are given a URL immediately, `repl.it` was attractive as an IDE. 
 
-| <img src="https://github.com/ArthurConmy/EPQ/blob/images/bad%20interface.png" width="300" height="400"/> |
+| <img src="https://github.com/ArthurConmy/EPQ/blob/images/replitinterface.png" height="400"/> |
 |:--:| 
 | *The new interface in `repl.it`. The grid in the background provides a much better Dots-and-Boxes playing experience* |
 
