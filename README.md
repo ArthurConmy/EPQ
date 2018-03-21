@@ -1,8 +1,16 @@
 # EPQ
 
-This repository holds all important files in the EPQ qualification I am working towards. 
+This repository holds all important files in the EPQ qualification I am working towards.
 
-The following ReadMe also documents the development of all such files leading up to the penultimate product, that is, the Dots and Boxes player that beat me at the game.
+The following ReadMe also documents the research and development in my project, from its conception towards the final program which I tested against myself.
+
+# Initial Research
+
+My aims are as follows:
+
+```AIMS```
+
+The programming language that I shall use is the Python programming langauge. 
 
 # Simulator.py
 
@@ -429,3 +437,5 @@ def is_neutral_square(hs, vs, rs, cs): ## is there a neutral move that can be ma
 
         return False
 ```
+
+# REFERENCES!!!
