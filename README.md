@@ -1,3 +1,7 @@
+# DO NOT MARK THIS!
+
+Head on over to `https://github.com/ArthurConmy/EPQ/` for my latest work. This is a branch of my project that stores all images, and the rest of the files here are from earlier iterations of the project, including the report below.
+
 # EPQ
 
 This repository holds all important files in the EPQ qualification I am working towards.
