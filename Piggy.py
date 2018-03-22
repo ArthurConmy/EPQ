@@ -75,6 +75,32 @@ def is_winnable_square(verticals, horizontals, board_size):
       return spare
   
   return False
+
+def no_consecutive_takeable_squares(hs, vs, rs, cs): ## take as many squares as possible!
+
+    copyh = hs[:]
+    copyv = vs[:]
+
+    number = 0
+
+    while is_winnable_square(copyh, copyv, rs, cs) != False:
+
+        number+=1
+
+        move_made = is_winnable_square(copyh, copyv, rs, cs)
+        #print(move_made)
+
+        if move_made[0] == 'h':
+
+                copyh[int(move_made[1:])] = 1
+                #print('changed')
+
+        if move_made[0] == 'v':
+
+                copyv[int(move_made[1:])] = 1
+                #print('changed too')
+
+    return number
   
 def random_from_list(lis):
   return lis[randint(0, len(lis)-1)]
