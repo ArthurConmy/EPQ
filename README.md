@@ -29,6 +29,10 @@ Use the Python programming language in order to develop in the following order:
 * A more complicated (minimax algorithm based) opponent, that only plays Dots-and-Boxes games on smaller grids
 * A general minimax opponent
 
+| <img src="https://github.com/ArthurConmy/EPQ/blob/images/python-logo.png" width="200" height="100"/> |
+|:--:| 
+| *The Python Logo* |
+
 There are several decisions made here that need to be expounded and/or justified.
 
 To begin, the choice of Python as the programming language. This was made for two reasons: first, this is the language that I am most familiar with, and secondly, because it is one of the most intuitive languages to read and thus debug [1]. I plan to use the IDLE 
@@ -213,6 +217,12 @@ Finally, the program prints out the scores of all players in the game, and print
 
 ## Piggy.py
 
+It is now time to develop a computer opponent to the Dots and Boxes game, this following an aforementioned 'greedy algorithm' (from [3], 'an algorithm that always takes the best immediate, or local, solution while finding an answer), which in this context will greedily take a square whenever it can, and otherwise sacrifices as few squares as possible. I developed a flow chart to stay focused on such an algorithm:
+
+| <img src="https://github.com/ArthurConmy/EPQ/blob/images/drawio.png" height="400"/> |
+|:--:| 
+| *The flow chart documenting the control flow of the greedy algorithm* |
+
 ## 2x2 Minimax.py
 
 The brute force minimax algorithm for a 2x2 game of Dots and Boxes shall pivot around the game tree of the game, that is, a list of all possible states that the game could be in. It is initialised as follows:
@@ -318,7 +328,17 @@ that was changed from an earlier iteration of the program in order to drasticall
 
 What this block of code is doing is making sure that game states are not added twice to the `game_tree`. This is often an important step in Breadth First Search (BFS) algorithms. Once again, see the essay.
 
-The function `is_in` is fairly simple ...
+The function `is_in` is fairly simple, allowing us to determine whether we've already encountered a leaf prior in the minimax search, as we parse all the leafs we encounter through this function to make sure that they are not double up:
+
+``` Python
+def isin(big, small):
+    for thing in big:
+        if thing[1:]==small[1:]:
+            return big.index(thing)
+    return -1
+```
+
+We return `-1` in this function rather than `False` because of ambiguities with the behaviour of the `big.index(thing)` which on occasion returned `0` which is synonomous with `False` in Python [6]. 
 
 ## General Solution.py
 
@@ -506,3 +526,5 @@ is Open. Accessed 21/03/2018
 * [4], Stanford University, 'Deep Blue': *'... first put forth the idea of a function for evaluating the efficacy of a particular move and a "minimax" algorithm which took advantage of this evaluation function by taking into account the efficacy of future moves that would be made available by any particular move. This work provided a framework for all future research in computer chess playing.'* http://stanford.edu/~cpiech/cs221/apps/deepBlue.html. Accessed 21/03/18
 
 * [5], 'Colored Text!' by @rocco, https://repl.it/@rocco/Coloured-Text. Accessed 20/02/18. 404 not found on 21/03/18; luckily I had forked the project to https://repl.it/@HuskerDu/Coloured-Text. Accessed 21/03/18.
+
+* [6] Python Enhancement Protocol no. 285: 'Adding a bool type' https://www.python.org/dev/peps/pep-0285/. Accessed 21/03/18
