@@ -1,3 +1,9 @@
+# Panagi feedback
+
+* Instructions
+* Maybe classes, but 'it works'
+* Appreciated final message and general interface performance
+
 # EPQ
 
 This repository holds all important files in the EPQ qualification I am working towards.
