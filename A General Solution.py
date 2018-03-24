@@ -6,17 +6,17 @@ white='\033[1;37m'
 black='\033[1;30m'
 reset='\033[0m'
 
-def print_game(horizontals, verticals, bs): ## Takes input as the horizontals and verticals of the game. Prints the board. Doesn't account for drawing letters in squares that have been won
+def print_game(horizontals, verticals, rs, cs): ##if you're in repl.it, turn this into print_game and delete the function below
   
-    for index in range(0, bs+1):
-        for index_2 in range(index*bs, index*bs + bs):
+    for index in range(0, rs+1):
+        for index_2 in range(index*cs, (index+1)*cs):
             if horizontals[index_2]==1:
                 print('{} --'.format(white), end='')
             else:
                 print('{} --{}'.format(black, reset), end='') ## colour ?!
         print()
-        if index!=bs:
-            for index_3 in range(index*(bs+1), index*(bs+1) + bs + 1):
+        if index!=rs:
+            for index_3 in range(index*(cs+1), (index+1)*(cs+1)):
                 if verticals[index_3]==1:
                     print('{}|  {}'.format(white, reset), end='')
                 else:
@@ -37,7 +37,7 @@ def is_critical(hs, vs, rs, cs): ## try to find a non critical
 
                         if is_winnable_square(newh, vs, rs, cs) == False:
 
-                                return False
+                                return 'h'+str(horizontal)
 
         for vertical in range(0, (cs+1)*rs):
 
@@ -49,7 +49,7 @@ def is_critical(hs, vs, rs, cs): ## try to find a non critical
 
                         if is_winnable_square(hs, newv, rs, cs) == False:
 
-                                return False
+                                return 'v'+str(vertical)
         return True
 
 def is_winnable_square(hs, vs, rs, cs):
@@ -141,6 +141,27 @@ def is_neutral_square(hs, vs, rs, cs): ## is there a neutral move that can be ma
 
         return False
 
+def no_neutrals(hs, vs, rs, cs): ## how many (naively) neutral moves from this point?
+
+  number=0
+  
+  copyh=hs[:]
+  copyv=vs[:]
+  
+  while is_critical(copyh, copyv, rs, cs)!=True:
+    
+    number+=1
+    
+    move=is_critical(copyh, copyv, rs, cs)
+    
+    if move[0]=='h':
+      copyh[int(move[1:])]=1
+      
+    else:
+      copyv[int(move[1:])]=1
+      
+  return number
+
 def completed_squares(hs, vs, rs, cs): ## Returns the number of completed squares (all players)
 
     the_completed_squares=0 ##=[]
@@ -177,8 +198,8 @@ def no_consecutive_takeable_squares(hs, vs, rs, cs): ## take as many squares as 
 
     return number
 
-rows = 4 
-columns = 4
+rows = 3 
+columns = 3
 
 hs=[0 for i in range(0, columns*(rows+1))]
 vs=[0 for i in range(0, rows*(columns+1))]
@@ -193,17 +214,17 @@ critical_yet = False
 
 for turn in count():
   
-        print_game(hs, vs, rows) ## RELIES ON SQUARE BOARD
+        print(hs)
+        print(vs)
+  
+        print()
+        print_game(hs, vs, rows, columns)
 
         if hs.count(0)+vs.count(0)==0: break ## game over
 
         move_made = False
 
-        if players_turn == 0:
-
-        ## players turn
-
-        ## code from simulator or wherever
+        if players_turn == 0: ## players turn
 
                 move_made = input('It\'s your move, player! >')
 
@@ -214,10 +235,10 @@ for turn in count():
                         ## if neutral squares left
                         ## then take square
 
-                        if is_neutral_square(hs, vs, rows, columns):
+                        if no_neutrals(hs, vs, rows, columns)>1:
 
                                 move_made = is_winnable_square(hs, vs, rows, columns)
-                                print('Making move thats taking a square because neutral square exists')
+                                print('Making move thats taking a square because neutral squareS exist')
 
                         ## else if squares in long chain
                         ## then take all but last two
@@ -317,7 +338,7 @@ for turn in count():
 
                         ## else sacrifice the least valuable chain. AND ACTUALLY SACRIFICE IT, NOT JUST LET THEM RETURN THE FAVOR
 
-                        if is_neutral_square(hs, vs, rows, columns):
+                        if no_neutrals(hs, vs, rows, columns)>0:
 
                             ## neutral square to be taken
 
