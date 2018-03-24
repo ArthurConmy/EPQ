@@ -164,19 +164,49 @@ while hs.count(0)+vs.count(0)>0:
       
       if len(candidate_moves)>0:
         move_made=random_from_list(candidate_moves)
-        
-      else: ## we have to sacrifice. This is done at random but could be done FAR better
+      
+      else:
         moves=[]
+        min_takable = rows*columns # worse case scenario we have to take EVERY square
         
         for horizontal in range(0, columns*(rows+1)):
-          if hs[horizontal]==0:
-            moves.append('h'+str(horizontal))
-        for vertical in range(0, rows*(columns+1)):
-          if vs[vertical]==0:
-            moves.append('v'+str(vertical))
+          
+          if hs[horizontal]==1: continue
         
+          copyh=hs[:]
+          copyh[horizontal]=1 
+          
+          takey = no_consecutive_takeable_squares(copyh, vs, rows, columns)
+          
+          if takey > min_takable: continue
+        
+          if takey == min_takable:
+            moves.append('h'+str(horizontal))
+            
+          else: # takey < min_takable  
+            min_takable=takey
+            moves=['h'+str(horizontal)]
+            
+        for vertical in range(0, rows*(columns+1)):
+          
+          if vs[vertical]==1: continue
+        
+          copyv=vs[:]
+          copyv[vertical]=1 
+          
+          takey = no_consecutive_takeable_squares(hs, copyv, rows, columns)
+          
+          if takey > min_takable: continue
+        
+          if takey == min_takable:
+            moves.append('v'+str(vertical))
+            
+          else: # takey < min_takable  
+            min_takable=takey
+            moves=['v'+str(vertical)]
+            
         move_made=random_from_list(moves)
-      
+            
     ## else for move in moves
     
     move_made=[move_made[0], int(move_made[1:])]
