@@ -223,6 +223,26 @@ It is now time to develop a computer opponent to the Dots and Boxes game, this f
 |:--:| 
 | *The flow chart documenting the control flow of the greedy algorithm* |
 
+... (Improvements section? After all, the original code was the stuff that was tested against Ruth)
+
+Originally, the following piece of code was used to make a move if there were no squares available to be taken and no neutral squares either
+
+``` Python
+      else: ## we have to sacrifice. This is done at random but could be done FAR better
+        moves=[]
+        
+        for horizontal in range(0, columns*(rows+1)):
+          if hs[horizontal]==0:
+            moves.append('h'+str(horizontal))
+        for vertical in range(0, rows*(columns+1)):
+          if vs[vertical]==0:
+            moves.append('v'+str(vertical))
+        
+        move_made=random_from_list(moves)
+```
+
+However, this was quickly found to be inadequate, as the nature of Dots-and-Boxes is such that many chains are available to be taken at the end of the game, and that in fact a random move is much more likely to make a large sacrifice of boxes than a small number. 
+
 ## 2x2 Minimax.py
 
 The brute force minimax algorithm for a 2x2 game of Dots and Boxes shall pivot around the game tree of the game, that is, a list of all possible states that the game could be in. It is initialised as follows:
