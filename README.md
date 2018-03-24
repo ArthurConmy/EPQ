@@ -241,11 +241,59 @@ Originally, the following piece of code was used to make a move if there were no
         move_made=random_from_list(moves)
 ```
 
-However, this was quickly found to be inadequate, as the nature of Dots-and-Boxes is such that many chains are available to be taken at the end of the game, and that in fact a random move is much more likely to make a large sacrifice of boxes than a small number. 
+However, this was quickly found to be inadequate, as the nature of Dots-and-Boxes is such that many chains are available to be taken at the end of the game, and that in fact a random move is much more likely to make a large sacrifice of boxes than a small number. Instead, the following code sacrifices the least number of possible squares that it can;
+
+``` Python
+else:
+        moves=[]
+        min_takable = rows*columns # worse case scenario we have to take EVERY square
+        
+        for horizontal in range(0, columns*(rows+1)):
+          
+          if hs[horizontal]==1: continue
+        
+          copyh=hs[:]
+          copyh[horizontal]=1 
+          
+          takey = no_consecutive_takeable_squares(copyh, vs, rows, columns)
+          
+          if takey > min_takable: continue
+        
+          if takey == min_takable:
+            moves.append('h'+str(horizontal))
+            
+          else: # takey < min_takable  
+            min_takable=takey
+            moves=['h'+str(horizontal)]
+            
+        for vertical in range(0, rows*(columns+1)):
+          
+          if vs[vertical]==1: continue
+        
+          copyv=vs[:]
+          copyv[vertical]=1 
+          
+          takey = no_consecutive_takeable_squares(hs, copyv, rows, columns)
+          
+          if takey > min_takable: continue
+        
+          if takey == min_takable:
+            moves.append('v'+str(vertical))
+            
+          else: # takey < min_takable  
+            min_takable=takey
+            moves=['v'+str(vertical)]
+            
+        move_made=random_from_list(moves)
+```
+
+Characteristic of much of the progress in this project, what seems like a trivial improvement requires a significant chunk of code, 40 lines in this case! However, such an improvement is very important for the development of a reasonable greedy algorithm that will challenge novice players of Dots-and-Boxes.
 
 ## 2x2 Minimax.py
 
-The brute force minimax algorithm for a 2x2 game of Dots and Boxes shall pivot around the game tree of the game, that is, a list of all possible states that the game could be in. It is initialised as follows:
+We now moved on to the much cleverer approach to the Dots-and-Boxes opponent; the minimax algorithm. However, the difficulty of programming a minimax algorithm being much greater than the difficulty of programming a greedy algorithm, we decided to code a minimax algorithm not for arbitrarily sized Dots-and-Boxes grids, but only for a 2x2 grid. Furthermore, this program would have an 'evaluator function' (see accompanying essay) as the game being won, as opposed to a more short term evaluator.
+
+The brute force minimax algorithm for a 2x2 game of Dots and Boxes pivoted around the game tree of the game, that is, a list of all possible states that the game could be in. It is initialised as follows:
 
 ```Python
 game_tree=[[], [[[], [1, 0, 0, 0, 0, 0], [0, 0, 0, 0, 0, 0], 1, 0, 0, -1], [[], [0, 0, 0, 0, 0, 0], [0, 1, 0, 0, 0, 0], 1, 0, 0, -1]]]
@@ -543,7 +591,7 @@ is Open. Accessed 21/03/2018
 
 * [3], National Institute of Standards and Technology: 'Greedy Algorithm': https://xlinux.nist.gov/dads//HTML/greedyalgo.html. Accessed 21/03/2018
 
-* [4], Stanford University, 'Deep Blue': *'... first put forth the idea of a function for evaluating the efficacy of a particular move and a "minimax" algorithm which took advantage of this evaluation function by taking into account the efficacy of future moves that would be made available by any particular move. This work provided a framework for all future research in computer chess playing.'* http://stanford.edu/~cpiech/cs221/apps/deepBlue.html. Accessed 21/03/18
+* [4], Stanford University, 'Deep Blue': *'... first put forth the idea of **a function for evaluating the efficacy of a particular move and a "minimax" algorithm which took advantage of this evaluation function** by taking into account the efficacy of future moves that would be made available by any particular move. This work provided a framework for all future research in computer chess playing.'* http://stanford.edu/~cpiech/cs221/apps/deepBlue.html. Accessed 21/03/18
 
 * [5], 'Colored Text!' by @rocco, https://repl.it/@rocco/Coloured-Text. Accessed 20/02/18. 404 not found on 21/03/18; luckily I had forked the project to https://repl.it/@HuskerDu/Coloured-Text. Accessed 21/03/18.
 
