@@ -595,7 +595,32 @@ def is_neutral_square(hs, vs, rs, cs): ## is there a neutral move that can be ma
         return False
 ```
 
-Such functions allowed the general solution
+Such functions allowed the general solution to be able written compactly. In fact there are even more such functions defined in `General Solution.py`: these being
+
+```Python
+def no_neutrals(hs, vs, rs, cs):
+  ...
+  
+def no_consecutive_takeable_squares(hs, vs, rs, cs):
+  ...
+  
+def parity_long_chains(hs, vs, rs, cs):
+  ...
+```
+
+The first two being self-explanatory; `no_neutrals` returning the number of consecutive neutral moves that can be made on a given grid, and `no_consecutive_takeable_squares` returning the number of squares that can be taken consecutively on a given grid. `parity_long_chains` returns the parity (`0` being even, `1` being odd) of the number of so called 'long chains' in a given Dots-and-Boxes grid.
+
+The importance of these functions lies in the minimax search; see the accompanying essay for explanation of Berlekamp's 'long chain rule' which is central to our minimax search. In particular, lines of code such as 
+
+``` Python 
+                          if no_neutrals(hs, vs, rows, columns) <= max_ply:
+                            
+                              print('Beginning minimax')
+                              print('Please wait ...')
+```
+show the initialisation of the minimax search, in particularly intuitive manner. that is, `no_neutrals(hs, vs, rows, columns)` provides a reasonable estimate for the ply depth of the minimax, and the `if` statement compares such an estimate to the user inputted `max_ply` variable, which sets out the maximum ply that the program is permitted to such to.
+
+Within the above `if` clause,
 
 # Expert Feedback
 
