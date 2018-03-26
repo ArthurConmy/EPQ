@@ -209,7 +209,7 @@ The first `if` statement is part of the `turn` loop yet references the end of th
 
 Finally, the program prints out the scores of all players in the game, and prints a message if they are a winner.
 
-## Piggy.py
+# Piggy.py
 
 It is now time to develop a computer opponent to the Dots and Boxes game, this following an aforementioned 'greedy algorithm' (from [3], 'an algorithm that always takes the best immediate, or local, solution while finding an answer), which in this context will greedily take a square whenever it can, and otherwise sacrifices as few squares as possible. I developed a flow chart to stay focused on such an algorithm:
 
