@@ -245,8 +245,9 @@ def isin(big, small):
             return big.index(thing)
     return -1
 
-rows = 3 
-columns = 3
+rows = int(input('Enter number of rows >'))
+columns = int(input('Enter number of columns >'))
+max_ply = int(input('Enter maximum ply for the minimax search. 8 will be slow, 6 medium, 4 fast >'))
 
 hs=[0 for i in range(0, columns*(rows+1))]
 vs=[0 for i in range(0, rows*(columns+1))]
@@ -261,8 +262,8 @@ critical_yet = False
 
 for turn in count():
   
-        print(hs)
-        print(vs)
+        ##print(hs)
+        ##print(vs)
   
         print()
         print_game(hs, vs, rows, columns)
@@ -346,11 +347,11 @@ for turn in count():
                                 if is_move_made==False:
 
                                     move_made=is_winnable_square(hs, vs, rows, columns)
-                                    print('can\'t make ;neutral; move')
+                                    print('Can\'t make \'neutral\' move')
 
                                 else:
                                   
-                                    print('there\'s a neutral move')
+                                    print('There\'s a neutral move')
 
                                     ## bit peak but we'll just have to make sacrifices next turn
                         ### THINGS:
@@ -384,9 +385,10 @@ for turn in count():
 
                         if no_neutrals(hs, vs, rows, columns)>0:
                           
-                          if no_neutrals(hs, vs, rows, columns) <= 8:
+                          if no_neutrals(hs, vs, rows, columns) <= max_ply:
                             
                               print('Beginning minimax')
+                              print('Please wait ...')
                             
                             ## begin minimax
                             
@@ -448,7 +450,8 @@ for turn in count():
                                         
                                 breadth.append(new_layer)
                                 
-                              print('BFS complete')  
+                              print('BFS complete')
+                              print('Just wait for a countdown from the number of plies')
                                 
                               for i in range(len(breadth)-2, 0, -1):
                                 
