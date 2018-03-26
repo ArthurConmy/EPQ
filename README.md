@@ -608,6 +608,28 @@ On the other hand Dr Panagi appreciated much of the rest of the interface of my 
 
 In terms of classes, these had been something I had been concerned with throughout my project; I considered myself a competent Python programmer yet did not know how to implement classes in Python, and thus was worried that my code was substandard due to this. However Dr Panagi reassured me that classes were not necessary within my program, nor was my program significantly disadvantaged because of their absence. He emphasised the fact that my code *worked*, in addition to the fact that my use of functions and whitespace within the code showed clearly that I had planned and organised my code with a lot of care and thought, and that classes would have made only a trivial difference to my project.
 
+Responding quickly to the expert feedback, I added instructions to my program. These surrounded the preexistent prompts for the player to enter the number of rows, columns and maximum ply.
+
+```Python
+print('Welcome to the general solution Dots-and-Boxes opponent!')
+print()
+
+print('First, you will have to enter the number of rows, columns and the maximum ply for the minimax search. Do so now:')
+print()
+  
+rows = int(input('Enter number of rows >'))
+columns = int(input('Enter number of columns >'))
+max_ply = int(input('Enter maximum ply for the minimax search. 8 will be slow, 6 medium, 4 fast >'))
+print()
+
+print('To enter a horizontal move, enter \'hN\' (without the quotation marks) in order to enter the Nth horizontal move, which is counted from 0. Thus \'h0\' is the first horizontal move, and likewise \'v0\' is the first vertical move.')
+print()
+print('It may be best to play a couple of practise games with this program before a \'serious\' game, to become accustomed to this method of entering moves')
+print()
+print('We\'re about to begin: a blank grid shall be printed, which shall have white lines drawn onto after moves have been made. Good luck!')
+print()
+```
+
 # References
 
 * [1], from https://www.python.org/about/: 'Python is powerful... and fast; 
