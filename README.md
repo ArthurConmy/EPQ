@@ -597,17 +597,16 @@ Such functions allowed the general solution
 
 # Expert Feedback
 
-Wanting some expert advice on my program, I got into contact with a computing teacher at my school, Dr Peter Panagi, who was to advise me on the code that I had produced. His advice, which were often prompted by my concerns, fell into the following categories
+Wanting some expert advice on my program, I got into contact with a computing teacher at my school, Dr Peter Panagi, who was to advise me on the code that I had produced. His advice, which were often prompted by my concerns, fell into the two following categories
 
 * Interface
 * Classes
-* General Performace
 
 With regard to the interface of my program, Dr Panagi instantly was disconcerted by the lack of instructions for how to enter moves. This was something that I had failed to implement solely because of my own familiarity with such move entry, but I realised seeing him play the game that it was not intuitive that 'hN' entered the Nth horizontal move, for example. This was to be a fairly brief improvement to my program and Dr Panagi understood the reason why it had been omitted, yet stressed the importance of software being designed constantly with the consumer in mind.
 
 On the other hand Dr Panagi appreciated much of the rest of the interface of my program - this included the winner/loser messages printed at the end of the game and the skill level of the computer player.
 
-In terms of classes, these had been something I had been concerned with throughout my project; I considered myself a competent Python programmer yet ...
+In terms of classes, these had been something I had been concerned with throughout my project; I considered myself a competent Python programmer yet did not know how to implement classes in Python, and thus was worried that my code was substandard due to this. However Dr Panagi reassured me that classes were not necessary within my program, nor was my program significantly disadvantaged because of their absence. He emphasised the fact that my code *worked*, in addition to the fact that my use of functions and whitespace within the code showed clearly that I had planned and organised my code with a lot of care and thought, and that classes would have made only a trivial difference to my project.
 
 # References
 
