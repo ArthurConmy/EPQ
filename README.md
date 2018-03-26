@@ -1,9 +1,3 @@
-# Panagi feedback
-
-* Instructions
-* Maybe classes, but 'it works'
-* Appreciated final message and general interface performance
-
 # EPQ
 
 This repository holds all important files in the EPQ qualification I am working towards.
@@ -18,7 +12,7 @@ My aims are as follows:
 * To improve the 'working' computer opponent such that it is at the ability of an intermediate ability human player
 * To test the computer opponent against myself, to be able to quantify the above aim
 
-Note that these have been developed from the more general and background research that I have already carried out; see the accompanying essay to this project. My research, however, is ongoing and thus this report, too, is referenced where external sources have influenced my decision making.
+Note that these have been developed from the more general and background research that I have already carried out; see the accompanying essay to this project. My research, however, is ongoing and thus this report, too, is referenced where external sources have influenced decision making.
 
 In order to meet the above aims, I shall do the following:
 
@@ -408,6 +402,26 @@ def isin(big, small):
 
 We return `-1` in this function rather than `False` because of ambiguities with the behaviour of the `big.index(thing)` which on occasion returned `0` which is synonomous with `False` in Python [6]. 
 
+After the BFS was completed, the minimax search was initialised; it was not particularly difficult to:
+
+```Python
+for depth in range(12, 1, -1):
+
+    for leaf in game_tree[depth]:
+
+        if leaf[6]!=-1:
+
+            if leaf[3] == leaf[6]: ## the player who has won is the same as the player who has just made the move
+
+                for index in leaf[0]:
+
+                    game_tree[depth-1][index][6] = leaf[3]
+```
+
+this code simply making each leaf backtrack where possible.
+
+The rest of this program simply borrows from `Greedy.py`; pitting a human player against the minimax opponent. This was in fact underwhelming; see the essay.
+
 ## General Solution.py
 
 The final program in this repository and my project as a whole is the general Dots and Boxes AI player. Again, this program shall use the minimax algorithm in order to make its moves, yet whereas in `2x2 Minimax.py` the minimax algorithm used finished games to backtrack, this program shall use Berlekamp's 'chain rule' (see accompanying essay) in order to reach game states from which it will win.
@@ -578,6 +592,22 @@ def is_neutral_square(hs, vs, rs, cs): ## is there a neutral move that can be ma
 
         return False
 ```
+
+Such functions allowed the general solution
+
+# Expert Feedback
+
+Wanting some expert advice on my program, I got into contact with a computing teacher at my school, Dr Peter Panagi, who was to advise me on the code that I had produced. His advice, which were often prompted by my concerns, fell into the following categories
+
+* Interface
+* Classes
+* General Performace
+
+With regard to the interface of my program, Dr Panagi instantly was disconcerted by the lack of instructions for how to enter moves. This was something that I had failed to implement solely because of my own familiarity with such move entry, but I realised seeing him play the game that it was not intuitive that 'hN' entered the Nth horizontal move, for example. This was to be a fairly brief improvement to my program and Dr Panagi understood the reason why it had been omitted, yet stressed the importance of software being designed constantly with the consumer in mind.
+
+On the other hand Dr Panagi appreciated much of the rest of the interface of my program - this included the winner/loser messages printed at the end of the game and the skill level of the computer player.
+
+In terms of classes, these had been something I had been concerned with throughout my project; I considered myself a competent Python programmer yet ...
 
 # References
 
