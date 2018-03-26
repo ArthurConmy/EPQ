@@ -245,9 +245,20 @@ def isin(big, small):
             return big.index(thing)
     return -1
 
+print('Welcome to the general solution Dots-and-Boxes opponent!')
+print()
+
+print('First, you will have to enter the number of rows, columns and the maximum ply for the minimax search. Do so now:')
+print()
+  
 rows = int(input('Enter number of rows >'))
 columns = int(input('Enter number of columns >'))
 max_ply = int(input('Enter maximum ply for the minimax search. 8 will be slow, 6 medium, 4 fast >'))
+print()
+
+print('To enter a horizontal move, enter \'hN\' (without the quotation marks) in order to enter the Nth horizontal move, which is counted from 0. Thus \'h0\' is the first horizontal move, and likewise \'v0\' is the first vertical move.')
+print('It may be best to play a couple of practise games with this program before a \'serious\' game, to become accustomed to this method of entering moves')
+print()
 
 hs=[0 for i in range(0, columns*(rows+1))]
 vs=[0 for i in range(0, rows*(columns+1))]
