@@ -4,6 +4,8 @@ This repository holds all important files in the EPQ qualification I am working 
 
 The following ReadMe also documents the research and development in my project, from its conception towards the final program which I tested against myself.
 
+To play against my artefact, visit https://repl.it/@HuskerDu/EPQ-General-Solution and click the 'run' button.
+
 # Initial Aims, Research
 
 My aims are as follows:
