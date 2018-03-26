@@ -620,7 +620,27 @@ The importance of these functions lies in the minimax search; see the accompanyi
 ```
 show the initialisation of the minimax search, in particularly intuitive manner. that is, `no_neutrals(hs, vs, rows, columns)` provides a reasonable estimate for the ply depth of the minimax, and the `if` statement compares such an estimate to the user inputted `max_ply` variable, which sets out the maximum ply that the program is permitted to such to.
 
-Within the above `if` clause,
+Within the above `if` clause, the minimax algorithm searches ahead and then tracks back in order to attempt to make moves that lead to there being the correct number of long chains, according to the long chain rule.
+
+I created a new file in order to develop the minimax algorithm, which made both organisation of the program far easier and did not clutter the `General Solution.py` file with code that would be very difficult to debug. This is contained within this repository as `General Minimax Testing.py`, but is not of great interest since does not play Dots-and-Boxes, only runs a single minimax search.
+
+In fact the minmax search is so similar to that that is documented with `2x2 Minimax.py` that we do not spend too much time recording its contents here.
+
+```Python
+  breadth=[[[[False], hs, vs, 0, 'NA']]] ## initialise BFS. player 0 to move
+  
+  ## breadth[depth][index][0] is the list of the parents
+  ## breadth[depth][index][1] are horizontals
+  ## breadth[depth][index][2] are verticals
+  ## breadth[depth][index][3] is player who has JUST made a move before this happened; the LAST move
+  ## breadth[depth][index][4] is the parity of chains
+  
+  while len(breadth[-1]) > 0:
+```
+
+The above piece of code, from `General Minimax Testing.py` is very much reminiscent of code within `2x2 Minimax.py`; the extended comment that acts as a reminder of what exactly the BFS stores, and the BFS loop that terminates when and only when no new states have been reached.
+
+Once `General Minimax Testing.py` successfully conducted a minimax search, we implemented this into `General Solution.py` and could begin the testing phase of this penultimate program. This is documented within our essay.
 
 # Expert Feedback
 
