@@ -219,8 +219,6 @@ It is now time to develop a computer opponent to the Dots and Boxes game, this f
 |:--:| 
 | *The flow chart documenting the control flow of the greedy algorithm* |
 
-... (Improvements section? After all, the original code was the stuff that was tested against Ruth)
-
 Originally, the following piece of code was used to make a move if there were no squares available to be taken and no neutral squares either
 
 ``` Python
