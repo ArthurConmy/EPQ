@@ -101,7 +101,7 @@ def print_game(verticals, horizontals, bs):
 
 which takes the arguments `verticals`, `horizontals` and `bs`, that being the board size of the grid. I tested this function yet found it to be unsatisfactory, especially for large grids; since it is ambiguous as to which line in the grid has been shaded:
 
-| <img src="https://github.com/ArthurConmy/EPQ/blob/images/bad%20interface.png" width="300" height="400"/> |
+| <img src="https://github.com/ArthurConmy/EPQ/blob/images/bad%20interface.png" width="200" height="300"/> |
 |:--:| 
 | *Note the awkward, 'floating' lines in the grid* |
 
